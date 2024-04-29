@@ -5,7 +5,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
-export class UserRepository {
+export class UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserEntity> {
