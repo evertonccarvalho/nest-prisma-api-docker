@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsRepository } from './repositories/posts.repository';
-import { NotFounderror } from 'src/common/errors/types/NotFoundError';
 import { PostEntity } from './entities/post.entity';
 
 @Injectable()
@@ -18,20 +17,14 @@ export class PostsService {
   }
 
   async findOne(id: number): Promise<PostEntity> {
-    const post = await this.repository.findOne(id);
-    if (!post) {
-      throw new NotFounderror('Post Não Encontrado');
-    }
-    return post;
+    return this.repository.findOne(id);
   }
 
   async update(id: number, updatePostDto: UpdatePostDto): Promise<PostEntity> {
-    await this.findOne(id);
     return this.repository.update(id, updatePostDto);
   }
 
   async remove(id: number): Promise<PostEntity> {
-    await this.findOne(id);
     return this.repository.remove(id);
   }
 }

@@ -48,6 +48,14 @@ export class PostsRepository {
   }
 
   async findOne(id: number): Promise<PostEntity> {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!post) {
+      throw new NotFounderror('Post Não Encontrado');
+    }
     return this.prisma.post.findUnique({
       where: {
         id,
@@ -109,6 +117,14 @@ export class PostsRepository {
   }
 
   async remove(id: number): Promise<PostEntity> {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!post) {
+      throw new NotFounderror('Post Não Encontrado');
+    }
     return this.prisma.post.delete({
       where: {
         id,
